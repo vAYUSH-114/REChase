@@ -21,7 +21,7 @@ requests==2.32.3
 requests-oauthlib==2.0.0
 setuptools==76.0.0
 six==1.17.0
-social-auth-app-django==4.0.0
+social-auth-app-django==7.1.0
 social-auth-core==4.5.6
 sqlparse==0.5.3
 typing_extensions==4.12.2

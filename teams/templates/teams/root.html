@@ -1,0 +1,143 @@
+{% include 'teams/base_bootstrap.html' %} {% load static %} {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+
+<style>
+	@import url("https://fonts.cdnfonts.com/css/fast-hand");
+
+	.root-card {
+		background: rgba(5, 5, 10, 0.75);
+		border-radius: 12px;
+		border: 1px solid #E97957;
+		box-shadow: 0px 0px 20px rgba(233, 121, 87, 0.4);
+		backdrop-filter: blur(8px);
+		max-width: 650px;
+		margin: 60px auto 40px auto;
+		padding: 40px 30px;
+		color: #ffffff;
+	}
+
+	.root-title {
+		color: #E97957;
+		font-family: 'Share Tech Mono', monospace, 'fast hand', sans-serif !important;
+		letter-spacing: 4px;
+		font-size: 38px;
+		text-shadow: 0 0 10px rgba(233, 121, 87, 0.7);
+		margin-bottom: 25px;
+	}
+
+	.root-input-group {
+		margin: 30px 0;
+	}
+
+	.root-input {
+		width: 100%;
+		max-width: 450px;
+		padding: 14px 20px;
+		font-size: 18px;
+		font-family: 'Share Tech Mono', monospace;
+		letter-spacing: 2px;
+		background: rgba(0, 0, 0, 0.7);
+		border: 2px solid #E97957;
+		border-radius: 8px;
+		color: #00ffcc;
+		text-align: center;
+		outline: none;
+		transition: all 0.3s ease;
+	}
+
+	.root-input:focus {
+		border-color: #00ffcc;
+		box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
+	}
+
+	.root-btn {
+		background: linear-gradient(135deg, #E97957 0%, #d63629 100%);
+		color: #ffffff;
+		font-family: 'Orbitron', sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+		letter-spacing: 2px;
+		padding: 12px 35px;
+		border: none;
+		border-radius: 8px;
+		cursor: pointer;
+		margin-top: 15px;
+		transition: all 0.3s ease;
+		box-shadow: 0 0 10px rgba(233, 121, 87, 0.5);
+	}
+
+	.root-btn:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 0 20px rgba(233, 121, 87, 0.9);
+		color: #ffffff;
+	}
+
+	.error-msg {
+		background: rgba(220, 53, 69, 0.25);
+		border: 1px solid #ff4d4d;
+		color: #ff9999;
+		padding: 15px 20px;
+		border-radius: 8px;
+		font-family: 'Orbitron', sans-serif;
+		font-size: 16px;
+		letter-spacing: 1px;
+		margin-top: 25px;
+		box-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
+	}
+
+	.success-container {
+		margin-top: 25px;
+		text-align: center;
+	}
+
+	.success-msg {
+		color: #00ffcc;
+		font-family: 'Orbitron', sans-serif;
+		font-size: 22px;
+		letter-spacing: 2px;
+		margin-bottom: 20px;
+		text-shadow: 0 0 10px rgba(0, 255, 204, 0.8);
+	}
+
+	.success-img {
+		max-width: 100%;
+		border-radius: 10px;
+		border: 3px solid #00ffcc;
+		box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
+		margin-top: 15px;
+	}
+</style>
+
+<div class="container">
+	<div class="root-card text-center">
+		<h1 class="root-title">/ROOT DECODER</h1>
+		<p style="font-family: 'Orbitron', sans-serif; font-size: 16px; color: #cccccc; letter-spacing: 1px;">
+			Enter the secret passkey below to override root access.
+		</p>
+
+		{% if success %}
+			<div class="success-container">
+				<div class="success-msg">✔ OVERRIDE SUCCESSFUL! ACCESS GRANTED</div>
+				<img src="{% static 'teams/images/oval.png' %}" alt="Override Unlocked" class="success-img" />
+			</div>
+		{% else %}
+			<form method="POST" action="{% url 'root' %}">
+				{% csrf_token %}
+				<div class="root-input-group">
+					<input type="text" name="passkey" class="root-input" placeholder="ENTER PASSKEY..." value="{{ entered_passkey|default:'' }}" required autocomplete="off" />
+				</div>
+				<button type="submit" class="root-btn">SUBMIT</button>
+			</form>
+
+			{% if error %}
+				<div class="error-msg">
+					<i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
+					{{ error }}
+				</div>
+			{% endif %}
+		{% endif %}
+	</div>
+</div>
+
+<div style="height: 80px"></div>
+{% endblock %}

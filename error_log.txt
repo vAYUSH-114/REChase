@@ -1,0 +1,234 @@
+﻿venv\Scripts\python : Traceback 
+(most recent call last):
+At line:1 char:1
++ venv\Scripts\python manage.py 
+migrate 2>&1 | Out-File 
+-FilePath error ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo          : No 
+   tSpecified: (Traceback (most  
+   recent call last)::String)    
+ [], RemoteException
+    + FullyQualifiedErrorId : Na 
+   tiveCommandError
+ 
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\backends\base\base.py", 
+line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\utils\asyncio.py", line 26, in 
+inner
+    return func(*args, **kwargs)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\backends\base\base.py", 
+line 256, in connect
+    self.connection = self.get_ne
+w_connection(conn_params)
+                      ~~~~~~~~~~~
+~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\utils\asyncio.py", line 26, in 
+inner
+    return func(*args, **kwargs)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\backends\postgresql\base.py"
+, line 345, in get_new_connection
+    connection = self.Database.co
+nnect(**conn_params)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\psyco
+pg2\__init__.py", line 135, in 
+connect
+    conn = _connect(dsn, connecti
+on_factory=connection_factory, 
+**kwasync)
+psycopg2.OperationalError: could 
+not translate host name 
+"dpg-db3l7cgm7kps73f4sva0-a" to 
+address: Name or service not 
+known
+
+
+The above exception was the 
+direct cause of the following 
+exception:
+
+Traceback (most recent call 
+last):
+  File "D:\1. FULL STACK 
+DEV\rechase2\manage.py", line 
+22, in <module>
+    main()
+    ~~~~^^
+  File "D:\1. FULL STACK 
+DEV\rechase2\manage.py", line 
+18, in main
+    execute_from_command_line(sys
+.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+^^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\__init__.py", 
+line 443, in 
+execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\__init__.py", 
+line 437, in execute
+    self.fetch_command(subcommand
+).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\base.py", line 
+422, in run_from_argv
+    self.execute(*args, 
+**cmd_options)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\base.py", line 
+466, in execute
+    output = self.handle(*args, 
+**options)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\base.py", line 
+113, in wrapper
+    res = handle_func(*args, 
+**kwargs)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\commands\migrat
+e.py", line 115, in handle
+    executor = 
+MigrationExecutor(connection, 
+self.migration_progress_callback)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\migrations\executor.py", 
+line 18, in __init__
+    self.loader = 
+MigrationLoader(self.connection)
+                  
+~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\migrations\loader.py", line 
+59, in __init__
+    self.build_graph()
+    ~~~~~~~~~~~~~~~~^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\migrations\loader.py", line 
+288, in build_graph
+    self.applied_migrations = 
+recorder.applied_migrations()
+                              
+~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\migrations\recorder.py", 
+line 89, in applied_migrations
+    if self.has_table():
+       ~~~~~~~~~~~~~~^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\migrations\recorder.py", 
+line 63, in has_table
+    with 
+self.connection.cursor() as 
+cursor:
+         ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\utils\asyncio.py", line 26, in 
+inner
+    return func(*args, **kwargs)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\backends\base\base.py", 
+line 320, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\backends\base\base.py", 
+line 296, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\utils\asyncio.py", line 26, in 
+inner
+    return func(*args, **kwargs)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\backends\base\base.py", 
+line 278, in ensure_connection
+    with 
+self.wrap_database_errors:
+         
+^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\utils.py", line 94, in 
+__exit__
+    raise dj_exc_value.with_trace
+back(traceback) from exc_value
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\backends\base\base.py", 
+line 279, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\utils\asyncio.py", line 26, in 
+inner
+    return func(*args, **kwargs)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\backends\base\base.py", 
+line 256, in connect
+    self.connection = self.get_ne
+w_connection(conn_params)
+                      ~~~~~~~~~~~
+~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\utils\asyncio.py", line 26, in 
+inner
+    return func(*args, **kwargs)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\backends\postgresql\base.py"
+, line 345, in get_new_connection
+    connection = self.Database.co
+nnect(**conn_params)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\psyco
+pg2\__init__.py", line 135, in 
+connect
+    conn = _connect(dsn, connecti
+on_factory=connection_factory, 
+**kwasync)
+django.db.utils.OperationalError:
+ could not translate host name 
+"dpg-db3l7cgm7kps73f4sva0-a" to 
+address: Name or service not 
+known
+

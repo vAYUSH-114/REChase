@@ -154,6 +154,7 @@ AUTHENTICATION_BACKENDS = (
 )
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 LOGIN_URL = '/oauth/login/google-oauth2/'
+SOCIAL_AUTH_REQUIRE_POST = False
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -199,7 +200,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
 
 FINAL_LEVEL = 1
 
-START_TIME = datetime.strptime(config('START_TIME'), "(%Y, %m, %d, %H, %M, %S, %f)")
-END_TIME = datetime.strptime(config('END_TIME'), "(%Y, %m, %d, %H, %M, %S, %f)")
+START_TIME = datetime.strptime(config('START_TIME', default='(2026, 10, 10, 14, 0, 0, 0)'), "(%Y, %m, %d, %H, %M, %S, %f)")
+END_TIME = datetime.strptime(config('END_TIME', default='(2026, 10, 10, 22, 0, 0, 0)'), "(%Y, %m, %d, %H, %M, %S, %f)")
 
 SECURE_SSL_REDIRECT = False

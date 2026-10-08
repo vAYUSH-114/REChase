@@ -18,8 +18,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from teams.views import logout_view, root_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('logout/', logout_view),
+    path('auth/logout/', logout_view, name='logout'),
+    path('root/', root_view, name='root'),
     path('', include('teams.urls')),
     path('auth/', include('django.contrib.auth.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),

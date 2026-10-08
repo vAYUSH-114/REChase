@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout as auth_logout
 from . import models
 import datetime
 from django.urls import reverse_lazy
@@ -12,20 +13,20 @@ from .utils import makeCode
 from django.conf import settings
 
 def save_profile(backend, user, response, *args, **kwargs):
-    # print(response)
     if backend.name == 'google-oauth2':
-        profile = user
-        try:
-            Player = models.Player.objects.get(user=profile)
-        except:
-            Player = models.Player(user=profile)
-            Player.timestamp = datetime.datetime.now()
-            try:
-                Player.name = response.get('name')
-                Player.email = response.get('email')
-            except:
-                Player.name = response.get('given_name') + " " + response.get('family_name')
-            Player.save()
+        player, created = models.Player.objects.get_or_create(user=user)
+        player.timestamp = datetime.datetime.now()
+        email = response.get('email') or getattr(user, 'email', None)
+        if email:
+            player.email = email
+        name = response.get('name')
+        if not name:
+            given = response.get('given_name', '')
+            family = response.get('family_name', '')
+            name = (f"{given} {family}").strip()
+        if name:
+            player.name = name
+        player.save()
 
 
 def home(request):
@@ -84,7 +85,8 @@ def get_level(request):
 @login_required
 @team_required
 def start_hunt(request):
-    return render(request,'teams/start_location.html')
+    context = {'cur_time': datetime.datetime.now(), 'start_time': settings.START_TIME}
+    return render(request, 'teams/start_location.html', context)
 
 
 
@@ -150,7 +152,7 @@ def joinTeam(request):
 def profileCompleteView(request):
     context = {}
     user = request.user
-    profile = models.Player.objects.get(email=user.email)
+    profile, _ = models.Player.objects.get_or_create(user=user)
     form = ProfileFillForm(request.POST or None)
     if form.is_valid():
         form.clean()
@@ -318,3 +320,21 @@ def detailedScoreboardView(request):
             )
         context['leveldetail'] = leveldetail
     return render(request, 'teams/detailed_leaderBoard.html', context)
+
+
+def logout_view(request):
+    auth_logout(request)
+    return redirect('teams:home')
+
+
+def root_view(request):
+    context = {}
+    if request.method == 'POST':
+        passkey = request.POST.get('passkey', '').strip()
+        if passkey.lower() == 'override':
+            context['success'] = True
+        else:
+            context['error'] = 'You have entered a wrong passkey. Try again and decode again!!'
+            context['entered_passkey'] = passkey
+    return render(request, 'teams/root.html', context)
+

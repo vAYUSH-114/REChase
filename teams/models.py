@@ -79,4 +79,4 @@ class Player(models.Model):
     accepted = models.SmallIntegerField(default=0)
 
     def __str__(self):
-        return self.name
+        return self.name or self.email or self.user.username

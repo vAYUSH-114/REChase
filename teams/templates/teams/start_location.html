@@ -198,14 +198,13 @@ input[type=submit] {
     <div class="card-header" >
         {% comment %} <h1 style="color: white; font-family: 'Fast Hand', sans-serif;" class="text-center">{{team.name}}</h1>
 		 {% endcomment %}
-			<p class="card-text" style="color: white; letter-spacing: 2px; font-family: 'Orbitron', sans-serif; padding-left: 10px;padding-right: 10px;visibility: visible;">
-				REChase is LIVE!
+			<p class="card-text" style="color: white; letter-spacing: 2px; font-family: 'Orbitron', sans-serif; padding-left: 10px;padding-right: 10px;visibility: visible;" id="timer">
 			</p>
 
       <br>
         <div  class="row" >
             <div class="col-lg-12 mar" style="margin-bottom: 10px;">
-                <h2 style="color: white; font-family: 'Audiowide', sans-serif;" class="text-center">Visit the Lords Arena to get the clue to your first location</h2>
+                <h2 style="color: white; font-family: 'Audiowide', sans-serif;" class="text-center">Visit the Oval Arena to get the clue to your first location</h2>
                
             </div>
         </div>
@@ -218,7 +217,7 @@ input[type=submit] {
 
          
 
-          <a style="padding:1em;color: white;background: transparent;text-decoration: none;font-weight: 800;border-radius: 10px;font-size: 1.2em;border: 1px solid white;display: flex;align-items: center;justify-content: center;" href="https://chat.whatsapp.com/KhLwPXG2L1DGTBeWRNqZDE" target="_blank">
+          <a style="padding:1em;color: white;background: transparent;text-decoration: none;font-weight: 800;border-radius: 10px;font-size: 1.2em;border: 1px solid white;display: flex;align-items: center;justify-content: center;" href="https://chat.whatsapp.com/E9tm7InKArB0FPGYUYrwKo" target="_blank">
 
             Click to Join 
             <i class="fa-brands fa-whatsapp fa-2x" style="margin-left: 0.4em;"></i>
@@ -230,7 +229,7 @@ input[type=submit] {
           <div class="qr_container">
             <span>Scan to Join</span>
             
-            <img class="join_grp_img" src="{% static 'teams/images/whatsapp_qr2025.png' %}" alt="QR"> 
+            <img class="join_grp_img" src="{% static 'teams/images/whatsapp_qr2026.png' %}" alt="QR"> 
 
           </div> 
 
@@ -299,5 +298,33 @@ input[type=submit] {
   
   </footer>
 
-  
+  <script>
+	var targetTime = 1791621000000; // 10th October 2026, 2:00 PM IST
+	var serverTimeUnix = parseInt("{{ start_time|date:'U' }}");
+	if (serverTimeUnix && serverTimeUnix >= 1791621000) {
+		targetTime = serverTimeUnix * 1000;
+	}
+	var countDownDate = new Date(targetTime);
+
+	function updateTimer() {
+	  var now = new Date().getTime();
+	  var distance = countDownDate - now;
+
+	  if (distance <= 0) {
+		if (typeof x !== 'undefined') clearInterval(x);
+		document.getElementById("timer").innerHTML = "REChase is LIVE!";
+	  } else {
+		var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+		document.getElementById("timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+	  }
+	}
+
+	updateTimer();
+	var x = setInterval(updateTimer, 1000);
+  </script>
+
 {% endblock %}

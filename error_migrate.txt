@@ -1,0 +1,138 @@
+﻿venv\Scripts\python : System 
+check identified some issues:
+At line:1 char:1
++ venv\Scripts\python manage.py 
+migrate --traceback 2>&1 | 
+Out-File -Fi ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : No 
+   tSpecified: (System check id  
+  entified some issues::String   
+ ) [], RemoteException
+    + FullyQualifiedErrorId : Na 
+   tiveCommandError
+ 
+
+WARNINGS:
+teams.Player: (models.W042) 
+Auto-created primary key used 
+when not defining a primary key 
+type, by default 
+'django.db.models.AutoField'.
+	HINT: Configure the 
+DEFAULT_AUTO_FIELD setting or 
+the 
+TeamsConfig.default_auto_field 
+attribute to point to a subclass 
+of AutoField, e.g. 
+'django.db.models.BigAutoField'.
+teams.Team: (models.W042) 
+Auto-created primary key used 
+when not defining a primary key 
+type, by default 
+'django.db.models.AutoField'.
+	HINT: Configure the 
+DEFAULT_AUTO_FIELD setting or 
+the 
+TeamsConfig.default_auto_field 
+attribute to point to a subclass 
+of AutoField, e.g. 
+'django.db.models.BigAutoField'.
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions, social_django, teams
+Traceback (most recent call 
+last):
+  File "D:\1. FULL STACK 
+DEV\rechase2\manage.py", line 
+22, in <module>
+    main()
+    ~~~~^^
+  File "D:\1. FULL STACK 
+DEV\rechase2\manage.py", line 
+18, in main
+    execute_from_command_line(sys
+.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+^^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\__init__.py", 
+line 442, in 
+execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\__init__.py", 
+line 436, in execute
+    self.fetch_command(subcommand
+).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\base.py", line 
+413, in run_from_argv
+    self.execute(*args, 
+**cmd_options)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\base.py", line 
+459, in execute
+    output = self.handle(*args, 
+**options)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\base.py", line 
+107, in wrapper
+    res = handle_func(*args, 
+**kwargs)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\core\management\commands\migrat
+e.py", line 302, in handle
+    pre_migrate_state = executor.
+_create_project_state(with_applie
+d_migrations=True)
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\migrations\executor.py", 
+line 91, in _create_project_state
+    
+migration.mutate_state(state, 
+preserve=False)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+^^^^^^^^^^^^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\migrations\migration.py", 
+line 91, in mutate_state
+    operation.state_forwards(self
+.app_label, new_state)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\migrations\operations\fields
+.py", line 95, in state_forwards
+    state.add_field(
+    ~~~~~~~~~~~~~~~^
+        app_label,
+        ^^^^^^^^^^
+    ...<3 lines>...
+        self.preserve_default,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\1. FULL STACK DEV\rech
+ase2\venv\Lib\site-packages\djang
+o\db\migrations\state.py", line 
+248, in add_field
+    self.models[model_key].fields
+[name] = field
+    ~~~~~~~~~~~^^^^^^^^^^^
+KeyError: ('social_django', 
+'code')

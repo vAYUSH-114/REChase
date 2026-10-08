@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-fallback-key-do-not-use-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # ALLOWED_HOSTS = ['.vercel.app', '*']
 ALLOWED_HOSTS = ['arhn.in', 'rechase.arhn.in', 'localhost', '127.0.0.1', '*']
@@ -98,7 +98,7 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL')
+        default=config('DATABASE_URL', default='sqlite:///db.sqlite3')
     )
 }
 
@@ -160,8 +160,8 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY', default='')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET', default='')
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
@@ -200,7 +200,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
 
 FINAL_LEVEL = 1
 
-START_TIME = datetime.strptime(config('START_TIME', default='(2026, 10, 10, 14, 0, 0, 0)'), "(%Y, %m, %d, %H, %M, %S, %f)")
-END_TIME = datetime.strptime(config('END_TIME', default='(2026, 10, 10, 22, 0, 0, 0)'), "(%Y, %m, %d, %H, %M, %S, %f)")
+START_TIME = datetime.strptime(config('START_TIME', default='(2026, 10, 10, 14, 0, 0, 0)').strip(' "\''), "(%Y, %m, %d, %H, %M, %S, %f)")
+END_TIME = datetime.strptime(config('END_TIME', default='(2026, 10, 10, 22, 0, 0, 0)').strip(' "\''), "(%Y, %m, %d, %H, %M, %S, %f)")
 
 SECURE_SSL_REDIRECT = False

@@ -47,12 +47,13 @@
 				width: 100%;
 				z-index: 2;
 				padding: 25px 30px;
+				background: rgba(0, 0, 0, 0.6);
 				transition: all 0.3s ease;
 			}
 			.navbar.sticky {
-				background: #ff009d59;
+				background: rgba(0, 0, 0, 0.9);
 				padding: 10px 0;
-				box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.1);
+				box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
 			}
 			.navbar .content1 {
 				display: flex;
@@ -218,12 +219,19 @@
 					{% if "/rules/" == request.path %}
 					<li><a href="{% url 'teams:home' %}">Home</a></li>
 					<li><a href="{% url 'teams:scoreboard' %}">Leaderboard</a></li>
+					<li><a href="{% url 'teams:registered-teams' %}">Registered Teams</a></li>
 					{% elif "/scoreboard/" == request.path %}
 					<li><a href="{% url 'teams:home' %}">Home</a></li>
 					<li><a href="{% url 'teams:rules' %}">Rules</a></li>
+					<li><a href="{% url 'teams:registered-teams' %}">Registered Teams</a></li>
+					{% elif "/registered-teams/" == request.path %}
+					<li><a href="{% url 'teams:home' %}">Home</a></li>
+					<li><a href="{% url 'teams:rules' %}">Rules</a></li>
+					<li><a href="{% url 'teams:scoreboard' %}">Leaderboard</a></li>
 					{% else %}
 					<li><a href="{% url 'teams:rules' %}">Rules</a></li>
 					<li><a href="{% url 'teams:scoreboard' %}">Leaderboard</a></li>
+					<li><a href="{% url 'teams:registered-teams' %}">Registered Teams</a></li>
 					{% endif %} {% if user.is_authenticated %}
 					<li>
 						<a href="{% url 'logout' %}?next={% url 'teams:home' %}">Logout</a>

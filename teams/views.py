@@ -218,6 +218,24 @@ def addTeammateView(request):
                 team.save()
     return redirect('teams:home')
 
+@login_required
+@team_required
+def removeTeammateView(request, teammate_id):
+    if request.method == 'POST':
+        user = request.user
+        profile = models.Player.objects.get(user=user)
+        team = profile.team
+        teammate = models.Teammate.objects.filter(id=teammate_id, team=team).first()
+        if teammate:
+            teammate.delete()
+            team.member_count -= 1
+            team.save()
+    return redirect('teams:home')
+
+def registeredTeamsView(request):
+    teams = models.Team.objects.all().order_by('-member_count', 'name')
+    context = {'teams': teams}
+    return render(request, 'teams/registered_teams.html', context)
 
 def scoreboardView(request):
     context = {'cur_time': datetime.datetime.now(), 'start_time': settings.START_TIME}

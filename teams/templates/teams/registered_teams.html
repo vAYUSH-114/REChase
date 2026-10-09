@@ -1,0 +1,153 @@
+{% extends 'teams/base_bootstrap.html' %}
+{% load static %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto:wght@100&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+
+<style>
+	@import url('https://fonts.cdnfonts.com/css/fast-hand');
+    @import url('https://fonts.googleapis.com/css2?family=Metrophobic&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
+   
+	footer {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgba(1, 2, 3, 0.7);
+		backdrop-filter: blur(5px);
+		height: auto;
+		width: 100vw;
+		font-family: "Open Sans";
+		padding-top: 15px;
+		color: #fff;
+	}
+	
+	.footer-content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		text-align: center;
+	}
+	.footer-content h3 {
+		text-shadow: 0 0 4px #ff0000;
+		font-size: 1.5rem;
+		font-weight: 400;
+		text-transform: capitalize;
+		line-height: 1rem;
+	}
+	.footer-content p {
+		text-shadow: 0 0 4px #ff0000;
+		max-width: 500px;
+		margin: 1px auto;
+		font-size: 1.5rem;
+	}
+	.socials{
+		list-style: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 1rem 0 1rem 0;
+	}
+	.socials li{
+		margin: 0 10px;
+	}
+	.socials a{
+		text-decoration: none;
+		color: #fff;
+	}
+	.socials a i{
+		font-size: 2rem;
+		transition: color .4s ease;
+		margin-left: 1vw;
+		margin-right: 1vw;
+	}
+	.socials a:hover i{
+		color: white;
+	}
+	.card{
+		border-radius: 8px;
+		border-bottom: solid 2px rgb(212,76,18);
+		box-shadow: 0px 1px 3px 2px #E97957;
+		backdrop-filter: blur(5px);
+		max-height:60vh;
+		overflow-y:scroll;
+	}
+	.card-body{
+		padding : 5px;
+	}
+
+	@media (max-width: 600px) {
+		.footer-content p {
+			font-size: 1.2rem;
+		}
+	}
+
+	@media (max-width: 800px) {
+	    .footer-content p {
+		    font-size: 1.3rem;
+	    }
+	}
+</style>
+
+<div class="card text-center" style="background: rgba(1, 2, 3,0.6); padding: 30px 30px ;">
+  <div class="card-header" >
+  <div class="card-body" style="color: #fff;">
+	
+    <h1 style="color: #E97957; font-family: 'fast hand', sans-serif !important; letter-spacing:5px; font-size:35px;" class=" leaderboard">REGISTERED TEAMS</h1>
+    <br>
+
+    <div class="table-responsive">
+        <table class="table table-bordered " style="font-weight:bold;box-shadow: 0px 0px 8px #000">
+            <tr style="background: linear-gradient(315deg, #E97957 0%, #000000 150%);color:#fff;font-size:18px">
+                <th style="text-align: center;">Team Name</th>
+                <th style="text-align: center;">Size</th>
+            </tr>
+            {% for team in teams %}
+            <tr>
+               <td style="color: white; font-family: 'Orbitron', sans-serif;">{{ team.name }}</td>
+               <td style="color: white; font-family: 'Orbitron', sans-serif;">{{ team.member_count }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<div style="height: 100px;"></div>
+
+<footer >
+	<div class="footer-content">
+		<p style="
+		text-shadow: none;
+		font-family: 'Orbitron', sans-serif;
+		letter-spacing: 2px;
+		margin-top:5px;
+	">Developed by: RECursion (Team Aavishkar)</p>
+	</div>
+	<div class="socials">
+	  <li>
+		<a href="https://www.facebook.com/arhn.nitd" target="blank">
+			<i style="height: 30px; width: auto; border: none" class="fab fa-facebook-square"></i>
+		</a>
+		<a href="https://www.instagram.com/arhn.nitd/" target="blank">
+			<i style="height: 35px; width: auto; border: none; " class="fab fa-instagram"></i>
+		</a>
+		<a href="https://www.linkedin.com/company/aarohan-nit-durgapur/" target="blank">
+			<i style="height: 35px; width: auto; border: none" class="fab fa-linkedin"></i>
+		</a>
+	  </li>
+	</div>
+</footer>
+{% endblock %}

@@ -246,9 +246,16 @@ input[type=submit] {
 				REChase Completed <a style="text-decoration: none; color:white" href="{% url 'teams:scoreboard' %}">!! Visit Leaderboard  !!</a>
 			</p>
 		{% elif started %}
-			<p class="card-text" style="color: white; letter-spacing: 2px; font-family: 'Audiowide', sans-serif; padding-left: 10px;padding-right: 10px;visibility: visible;">
-				<a style="padding:6px; color: white; background:#E97957; text-decoration: none; font-weight: 800; border-radius: 10px;" href="{% url 'teams:get-level' %}">Play</a>
-			</p> 
+            {% if team.member_count >= 3 %}
+                <h3 style="color: #00ff88; font-family: 'Orbitron', sans-serif; margin-bottom: 20px;">Your team is successfully formed!</h3>
+                <p class="card-text" style="color: white; letter-spacing: 2px; font-family: 'Audiowide', sans-serif; padding-left: 10px;padding-right: 10px;visibility: visible;">
+                    <a style="padding:6px; color: white; background:#E97957; text-decoration: none; font-weight: 800; border-radius: 10px;" href="{% url 'teams:get-level' %}">Play</a>
+                </p> 
+            {% else %}
+                <p class="card-text" style="color: #ffaa55; letter-spacing: 1px; font-family: 'Audiowide', sans-serif; padding-left: 10px;padding-right: 10px;visibility: visible;">
+                    You need at least 3 members in your team to start playing! Please add more teammates below.
+                </p>
+            {% endif %}
 		{% endif %}
 
     {% if teammate_form %}

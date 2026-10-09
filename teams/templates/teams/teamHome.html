@@ -267,7 +267,7 @@ input[type=submit] {
 
         <div id="teammate-form-container" style="display: none; margin-top: 20px;">
             <h2 style="color: white; font-family: 'Audiowide', sans-serif;" class="text-center">Add a Teammate</h2>
-            <form method="post" action="{% url 'teams:add-teammate' %}" style="margin: 0 auto; width: 300px; display: flex; flex-direction: column; align-items: center; color: white; font-family: 'Orbitron', sans-serif;">
+            <form method="post" action="{% url 'teams:add-teammate' %}" onsubmit="var btn=this.querySelector('input[type=submit]'); btn.disabled=true; btn.value='Submitting...';" style="margin: 0 auto; width: 300px; display: flex; flex-direction: column; align-items: center; color: white; font-family: 'Orbitron', sans-serif;">
                 {% csrf_token %}
                 <style>
                     #teammate-form-container input[type=text] {

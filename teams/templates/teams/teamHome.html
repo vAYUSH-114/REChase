@@ -300,7 +300,7 @@ input[type=submit] {
                         {{forloop.counter|add:1}}. {{teammate.name}} ({{teammate.roll_no}})
                         <form method="post" action="{% url 'teams:remove-teammate' teammate.id %}" style="display:inline; margin-left: 15px;">
                             {% csrf_token %}
-                            <button type="submit" style="background:#ff4444; border:none; color: white; padding: 2px 10px; border-radius: 5px; font-family: 'Orbitron', sans-serif; font-size: 0.8rem; cursor:pointer;">
+                            <button type="submit" style="background:#ff4444; border:none; color: white; padding: 4px 12px; border-radius: 5px; font-family: 'Orbitron', sans-serif; font-size: 1.0rem; cursor:pointer;">
                                 Remove
                             </button>
                         </form>

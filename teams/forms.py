@@ -13,6 +13,7 @@ class TeamCreationForm(forms.ModelForm):
 
 
 class ProfileFillForm(forms.ModelForm):
+    team_name = forms.CharField(max_length=128, required=True)
     phone = forms.CharField(max_length=13, min_length=10)
 
     class Meta:

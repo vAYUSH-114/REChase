@@ -125,20 +125,7 @@
         <h1 style="font-family: 'Orbitron', sans-serif; font-size:30px;">Leaderboard will be available soon</h1>
     {% else %}
 
-    <div class="table-responsive">
-        <table  class="table table-bordered "  style="font-weight:bold;box-shadow: 0px 0px 8px #000">
-            <tr style="background: linear-gradient(315deg, #E97957 0%, #000000 150%);color:#fff;font-size:18px">
-
-               
-                <th style="text-align: center;">Team Name</th>
-            </tr>
-            {% for item in qs %}
-            <tr>
-               <td>{{ item.name }}</td>      </td>
-            </tr>
-            {% endfor %}
-        </table>
-        </div>
+        <h3 style="color: white; font-family: 'Orbitron', sans-serif;">The leaderboard is currently locked and will be updated later.</h3>
 
     {% endif %}
 

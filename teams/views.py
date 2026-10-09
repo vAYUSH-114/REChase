@@ -167,7 +167,7 @@ def profileCompleteView(request):
         if profile.team is None:
             from .utils import makeCode
             code = makeCode()
-            team_name = f"{profile.name}'s Team {code}"[:128]
+            team_name = form.cleaned_data.get('team_name', f"{profile.name}'s Team")[:128]
             new_team = models.Team.objects.create(name=team_name, code=code, member_count=1)
             profile.team = new_team
             profile.team_code = code

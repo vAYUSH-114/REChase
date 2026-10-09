@@ -233,7 +233,7 @@ def removeTeammateView(request, teammate_id):
     return redirect('teams:home')
 
 def registeredTeamsView(request):
-    teams = models.Team.objects.all().order_by('-member_count', 'name')
+    teams = models.Team.objects.filter(member_count__gte=2, member_count__lte=4).order_by('-member_count', 'name')
     context = {'teams': teams}
     return render(request, 'teams/registered_teams.html', context)
 

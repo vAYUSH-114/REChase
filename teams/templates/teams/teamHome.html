@@ -298,10 +298,10 @@ input[type=submit] {
                 {% for teammate in teammates %}
                     <h3 style="color: white;font-family: 'Audiowide', sans-serif;" class="text-center">
                         {{forloop.counter|add:1}}. {{teammate.name}} ({{teammate.roll_no}})
-                        <form method="post" action="{% url 'teams:remove-teammate' teammate.id %}" style="display:inline;">
+                        <form method="post" action="{% url 'teams:remove-teammate' teammate.id %}" style="display:inline; margin-left: 15px;">
                             {% csrf_token %}
-                            <button type="submit" style="background:transparent; border:none; color: #ff4444; cursor:pointer;" title="Remove Teammate">
-                                <i class="fa fa-times"></i>
+                            <button type="submit" style="background:#ff4444; border:none; color: white; padding: 2px 10px; border-radius: 5px; font-family: 'Orbitron', sans-serif; font-size: 0.8rem; cursor:pointer;">
+                                Remove
                             </button>
                         </form>
                     </h3>

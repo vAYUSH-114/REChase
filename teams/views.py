@@ -8,6 +8,7 @@ from .decorators import team_required
 from .forms import (
     TeamCreationForm,
     ProfileFillForm,
+    TeammateForm,
 )
 from .utils import makeCode
 from django.conf import settings
@@ -51,11 +52,11 @@ def home(request):
         return render(request, 'teams/no_team.html', {})
     team = models.Team.objects.get(id=profile.team.pk)
     everyone = models.Player.objects.filter(team=team.pk)
-    team_players = everyone.filter(accepted=1)
-    context = {'team': team, 'profile': profile, 'players': team_players, 'max_level': settings.FINAL_LEVEL}
+    # We only have the leader as a Player now, others are Teammates
+    team_players = team.teammates.all()
+    context = {'team': team, 'profile': profile, 'teammates': team_players, 'max_level': settings.FINAL_LEVEL}
     if team.member_count < 5:
-        applicants = everyone.filter(accepted=0)
-        context['applicants'] = applicants
+        context['teammate_form'] = TeammateForm()
 
     # For managing event Wait and Finish  
     if datetime.datetime.now() < settings.START_TIME:
@@ -157,10 +158,22 @@ def profileCompleteView(request):
     if form.is_valid():
         form.clean()
         profile.name = form.cleaned_data['name']
+        profile.roll_no = form.cleaned_data.get('roll_no', '')
         profile.phone = form.cleaned_data['phone']
         profile.gender = form.cleaned_data['gender']
         profile.college = form.cleaned_data['college']
         profile.save()
+        
+        if profile.team is None:
+            from .utils import makeCode
+            code = makeCode()
+            team_name = f"{profile.name}'s Team {code}"[:128]
+            new_team = models.Team.objects.create(name=team_name, code=code, member_count=1)
+            profile.team = new_team
+            profile.team_code = code
+            profile.accepted = 1
+            profile.save()
+            
         return redirect('teams:home')
     context['form'] = form
     return render(request, 'teams/createProfile.html', context)
@@ -189,36 +202,20 @@ def leaveTeamView(request):  # needs to be removed
 
 
 @login_required
-def acceptTeamMateView(request):
-    user = request.user
-    if not user.is_authenticated:
-        return redirect('/oauth/login/google-oauth2/')
-
-    profile = models.Player.objects.get(user=user)
-    if profile.phone is None:
-        return redirect(reverse_lazy('teams:complete-profile'))
-
-    if profile.accepted == 0 or profile.team is None:
-        return redirect(reverse_lazy('teams:get-team'))
-
-    context = {}
-    owner = models.Player.objects.get(user=request.user)
-    team = models.Team.objects.get(pk=owner.team.id)
-    applicantId = int(request.POST.get('ID'))
-    verdict = request.POST.get('verdict')
-    applicant = models.Player.objects.get(id=applicantId)
-    if verdict == 'Reject':
-        applicant.team = None
-        applicant.save()
-    elif verdict == 'Accept':
-        if team.member_count >= 5:
-            context['team_full'] = 'Team is full.'
-            return redirect('teams:home')
-        applicant.accepted = 1
-        applicant.team_code = team.code
-        applicant.save()
-        team.member_count = team.member_count + 1
-        team.save()
+@team_required
+def addTeammateView(request):
+    if request.method == 'POST':
+        user = request.user
+        profile = models.Player.objects.get(user=user)
+        team = profile.team
+        if team.member_count < 5:
+            form = TeammateForm(request.POST)
+            if form.is_valid():
+                teammate = form.save(commit=False)
+                teammate.team = team
+                teammate.save()
+                team.member_count += 1
+                team.save()
     return redirect('teams:home')
 
 

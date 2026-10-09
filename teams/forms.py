@@ -2,7 +2,8 @@ from django import forms
 
 from .models import (
     Team,
-    Player
+    Player,
+    Teammate
 )
 
 class TeamCreationForm(forms.ModelForm):
@@ -16,4 +17,9 @@ class ProfileFillForm(forms.ModelForm):
 
     class Meta:
         model = Player
-        fields = ['name', 'phone', 'gender', 'college']
+        fields = ['name', 'roll_no', 'phone', 'gender', 'college']
+
+class TeammateForm(forms.ModelForm):
+    class Meta:
+        model = Teammate
+        fields = ['name', 'roll_no']

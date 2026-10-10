@@ -352,4 +352,26 @@ def root_view(request):
             context['error'] = 'You have entered a wrong passkey. Try again and decode again!!'
             context['entered_passkey'] = passkey
     return render(request, 'teams/root.html', context)
+
+def allTeamsDetailsView(request):
+    if not request.user.is_authenticated:
+        return redirect(reverse_lazy("teams:home"))
+    if not request.user.is_superuser:
+        return redirect(reverse_lazy("teams:home"))
+
+    all_teams = models.Team.objects.all().order_by('name')
+    teams_data = []
+    
+    for team in all_teams:
+        leader = models.Player.objects.filter(team=team).first()
+        teammates = team.teammates.all()
+        teams_data.append({
+            'team': team,
+            'leader': leader,
+            'teammates': teammates
+        })
+    
+    context = {'teams_data': teams_data}
+    return render(request, 'teams/all_teams_details.html', context)
+
 

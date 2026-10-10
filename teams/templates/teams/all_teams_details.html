@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Teams Details</title>
+    <!-- Include html2pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            padding: 20px;
+        }
+        .header-actions {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .btn-export {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-export:hover {
+            background-color: #0056b3;
+        }
+        #pdf-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .team-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            page-break-inside: avoid;
+        }
+        .team-name {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        .info-table th, .info-table td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        .info-table th {
+            background-color: #f8f9fa;
+            width: 25%;
+            color: #555;
+        }
+        .teammates-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-actions">
+        <button class="btn-export" onclick="exportPDF()">Download as PDF</button>
+    </div>
+
+    <div id="pdf-content">
+        <h1>All Teams Registration Details</h1>
+        
+        {% for data in teams_data %}
+        <div class="team-block">
+            <div class="team-name">Team: {{ data.team.name }}</div>
+            
+            <table class="info-table">
+                <tr>
+                    <th>Leader Name</th>
+                    <td>{{ data.leader.name|default:"N/A" }}</td>
+                </tr>
+                <tr>
+                    <th>Leader Roll No.</th>
+                    <td>{{ data.leader.roll_no|default:"N/A" }}</td>
+                </tr>
+                <tr>
+                    <th>Leader Phone</th>
+                    <td>{{ data.leader.phone|default:"N/A" }}</td>
+                </tr>
+            </table>
+
+            {% if data.teammates %}
+                <div class="teammates-title">Other Members:</div>
+                <table class="info-table">
+                    <tr>
+                        <th style="width:50%;">Name</th>
+                        <th style="width:50%;">Roll No.</th>
+                    </tr>
+                    {% for teammate in data.teammates %}
+                    <tr>
+                        <td>{{ teammate.name }}</td>
+                        <td>{{ teammate.roll_no }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p><i>No other members in this team.</i></p>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>No teams registered yet.</p>
+        {% endfor %}
+    </div>
+
+    <script>
+        function exportPDF() {
+            const element = document.getElementById('pdf-content');
+            const opt = {
+                margin:       10,
+                filename:     'all_teams_details.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</body>
+</html>

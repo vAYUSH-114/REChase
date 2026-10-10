@@ -16,4 +16,5 @@ urlpatterns = [
     path('chase/1/', views.start_hunt, name='start_hunt'),
     path('logout/', views.logout_view, name='logout'),
     path('root/', views.root_view, name='root'),
+    path('teams/', views.allTeamsDetailsView, name='all-teams'),
 ]
